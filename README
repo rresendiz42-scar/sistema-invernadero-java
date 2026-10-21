@@ -1,0 +1,60 @@
+# Sistema de Invernadero Inteligente
+
+Proyecto desarrollado en Java para la Práctica 5 (Herencia y Polimorfismo) de la materia de Ingeniería Informática.
+
+## Descripción del sistema
+El programa simula un invernadero inteligente que monitorea tres variables ambientales principales: temperatura del aire, humedad ambiental y humedad del suelo, utilizando una jerarquía de sensores. Además, incluye un sistema de riego que se activa de forma automática cuando el suelo presenta niveles bajos de humedad.
+
+## Estructura de clases
+- **Sensor:** Superclase que agrupa los atributos comunes (id, ubicación, estado y medición) y métodos generales.
+- **SensorTemperatura:** Subclase que evalúa los grados Celsius según los rangos establecidos.
+- **SensorHumedad:** Subclase que interpreta el porcentaje de humedad ambiental.
+- **SensorHumedadSuelo:** Subclase que evalúa la humedad de la tierra y determina si se requiere riego.
+- **SistemaRiego:** Clase independiente que controla el estado del suministro de agua.
+- **Main:** Clase principal donde se ejecutan las pruebas, el almacenamiento polimórfico y el uso de instanceof/casting.
+
+## Ejecución
+1. Abrir el proyecto en IntelliJ IDEA.
+2. Compilar y ejecutar la clase `Main.java` ubicada en el directorio `src`.
+
+## Conceptos aplicados
+- Encapsulación con modificadores privados y métodos de acceso.
+- Herencia para reutilizar código entre la superclase y las subclases.
+- Uso del operador `super` en constructores.
+- Sobrescritura de métodos mediante `@Override`.
+- Polimorfismo y enlace dinámico con arreglos de tipo `Sensor`.
+- Verificación de tipos con `instanceof` y *downcasting*.
+
+---
+
+## Reflexión final
+
+1. **¿Cuál es la superclase y cuáles son sus subclases?**
+   La superclase es `Sensor` y las subclases son `SensorTemperatura`, `SensorHumedad` y `SensorHumedadSuelo`.
+
+2. **¿Por qué existe una relación de herencia?**
+   Porque comparten atributos y comportamientos comunes (como identificador y ubicación), pero cada tipo de sensor interpreta su medición de forma distinta.
+
+3. **¿Qué atributos o comportamientos decidiste colocar en la superclase?**
+   Se colocaron los datos generales del dispositivo (`id`, `ubicacion`, `activo`, `medicion`) para evitar duplicar código en las clases hijas.
+
+4. **¿Para qué utilizaste `super`?**
+   Para llamar al constructor de la clase padre desde las subclases y reutilizar la inicialización de los atributos heredados.
+
+5. **¿Qué método sobrescribiste?**
+   El método `evaluarMedicion()`.
+
+6. **¿Dónde puedes observar polimorfismo?**
+   En el ciclo que recorre el arreglo de tipo `Sensor` llamando al mismo método, obteniendo una respuesta distinta según el objeto real.
+
+7. **¿Dónde puedes observar el enlace dinámico?**
+   En la resolución en tiempo de ejecución que hace Java para saber qué versión del método debe ejecutar cada objeto.
+
+8. **¿Para qué utilizaste `instanceof` y casting?**
+   Para verificar si un elemento de la colección era un `SensorHumedadSuelo` y poder realizar una conversión de tipo segura para acceder a un método específico.
+
+9. **¿Qué cambio realizaste entre tu UML inicial y tu UML final?**
+   Se mantuvo la estructura planteada inicialmente, agregando únicamente el método específico para validar el nivel de riego.
+
+10. **Si tuvieras que agregar un `SensorLuminosidad`, ¿qué tendrías que modificar?**
+    Solo sería necesario crear la nueva clase heredando de `Sensor`, sobrescribir el método de evaluación con sus propios rangos y añadirla al arreglo en el `Main`, sin afectar el resto del código.
