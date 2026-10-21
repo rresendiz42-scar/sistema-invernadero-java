@@ -16,4 +16,7 @@ public class SensorHumedadSuelo extends Sensor {
             System.out.println("Humedad del suelo alta");
         }
     }
+    public boolean requiereRiegoUrgente() {
+        return getMedicion() < 30.0;
+    }
 }
