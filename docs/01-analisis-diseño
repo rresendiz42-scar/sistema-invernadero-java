@@ -41,18 +41,37 @@ Sistema Riego	Controlar el suministro de agua	Estado, tiempo de riego y si está
 
 7. Justificación del diseño
 
-1. **¿Por qué propusiste esas clases?** Porque replican los elementos reales del caso de estudio (sensores especializados y un actuador de riego).
-2. **¿Cuál es la responsabilidad principal de cada una?** Mantener encapsulados sus datos y proveer lógica propia de evaluación o actuación.
-3. **¿Por qué determinados atributos serán `private`?** Para cumplir con la encapsulación y evitar que se modifiquen directamente desde clases externas (como `Main`).
-4. **¿Qué información proporcionarás mediante los constructores?** El identificador, la ubicación inicial y el estado base del dispositivo.
-5. **¿Cuál será la superclase?** La clase `Sensor`.
-6. **¿Qué clases serán subclases?** `SensorTemperatura`, `SensorHumedad` y `SensorHumedadSuelo`.
-7. **¿Por qué existe una relación “es un” entre ellas?** Porque un sensor de temperatura *es un* sensor con características adicionales.
-8. **¿Qué información o comportamiento decidiste colocar en la superclase?** ID, ubicación, estado, medición y los métodos de acceso estándar (getters/setters).
-9. **¿Qué elementos permanecerán en las subclases?** La lógica específica para interpretar la medición (`evaluarMedicion()`).
-10. **¿Por qué `SistemaRiego` no pertenece a la jerarquía de sensores?** Porque el sistema de riego no mide ni observa variables ambientales; su única responsabilidad es actuar (encender/apagar), por lo que no comparte los atributos de un sensor.
-11. **¿Qué decisiones tomaste para evitar duplicar responsabilidades?** Agrupar los atributos repetidos (`id`, `ubicacion`, etc.) en la clase padre `Sensor` para que las hijas los hereden automáticamente.
+1. ¿Por qué propusiste esas clases?** Porque replican los elementos reales del caso de estudio (sensores especializados y un actuador de riego).
+2. ¿Cuál es la responsabilidad principal de cada una?** Mantener encapsulados sus datos y proveer lógica propia de evaluación o actuación.
+3. ¿Por qué determinados atributos serán `private`?** Para cumplir con la encapsulación y evitar que se modifiquen directamente desde clases externas (como `Main`).
+4. ¿Qué información proporcionarás mediante los constructores?** El identificador, la ubicación inicial y el estado base del dispositivo.
+5. ¿Cuál será la superclase?** La clase `Sensor`.
+6. ¿Qué clases serán subclases?** `SensorTemperatura`, `SensorHumedad` y `SensorHumedadSuelo`.
+7. ¿Por qué existe una relación “es un” entre ellas?** Porque un sensor de temperatura *es un* sensor con características adicionales.
+8. ¿Qué información o comportamiento decidiste colocar en la superclase?** ID, ubicación, estado, medición y los métodos de acceso estándar (getters/setters).
+9. ¿Qué elementos permanecerán en las subclases?** La lógica específica para interpretar la medición (`evaluarMedicion()`).
+10. ¿Por qué `SistemaRiego` no pertenece a la jerarquía de sensores?** Porque el sistema de riego no mide ni observa variables ambientales; su única responsabilidad es actuar (encender/apagar), por lo que no comparte los atributos de un sensor.
+11. ¿Qué decisiones tomaste para evitar duplicar responsabilidades?** Agrupar los atributos repetidos (`id`, `ubicacion`, etc.) en la clase padre `Sensor` para que las hijas los hereden automáticamente.
 
 8. Diagrama UML inicial
 
 ![Diagrama UML inicial](uml-inicial.png)
+
+---
+
+9. Análisis de Polimorfismo y Enlace Dinámico (Fase 4)
+
+Tabla de Enlace Dinámico
+Tipo de referencia | Tipo real del objeto | Método que se ejecuta |
+|---|---|---|
+| `Sensor` | `SensorTemperatura` | `SensorTemperatura.evaluarMedicion()` |
+| `Sensor` | `SensorHumedad` | `SensorHumedad.evaluarMedicion()` |
+| `Sensor` | `SensorHumedadSuelo` | `SensorHumedadSuelo.evaluarMedicion()` |
+
+Preguntas de reflexión
+1. ¿Por qué una referencia de tipo `Sensor` puede apuntar a un objeto `SensorTemperatura`?** Porque existe una relación de herencia ("es un"); cualquier subclase puede ser tratada como su superclase.
+2. ¿Puede una referencia `SensorTemperatura` apuntar directamente a cualquier objeto `Sensor`?** No, porque un sensor genérico no necesariamente tiene los comportamientos o datos específicos de una temperatura (habría que hacer un casting, y aun así fallaría si el objeto real es de otro tipo).
+3. ¿Cuando ejecutas `sensor.evaluarMedicion()`, qué versión del método se ejecuta?** Se ejecuta la versión correspondiente al tipo real del objeto que está almacenado en esa posición en el momento de la ejecución.
+4. ¿Cómo determina Java cuál implementación utilizar?** Mediante el enlace dinámico (*dynamic binding*), evaluando el tipo real del objeto en tiempo de ejecución.
+5. ¿Dónde puedes observar el polimorfismo?** En el ciclo `for` que recorre el arreglo de tipo `Sensor` ejecutando la misma llamada (`evaluarMedicion()`) pero obteniendo comportamientos distintos.
+6. ¿Dónde puedes observar el enlace dinámico?** En la resolución automática que hace Java de qué método `evaluarMedicion()` invocar dependiendo de si el objeto es de temperatura, humedad ambiental o humedad del suelo.
