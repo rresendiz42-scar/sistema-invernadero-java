@@ -1,0 +1,28 @@
+Análisis y diseño
+1. Descripción del problema
+Un invernadero es un espacio donde se cultivan plantas y se controlan algunas condiciones para que puedan crecer adecuadamente. El sistema mide la temperatura, la humedad ambiental y la humedad del suelo. Con estos valores se puede saber si las condiciones son adecuadas o si hace falta regar las plantas. El sistema de riego se encarga de suministrar agua cuando la humedad del suelo es baja.
+2. Identificación de objetos
+- Sensor de Temperatura: Mide la temperatura del invernadero y permite saber si es alta, baja o adecuada.
+- Sensor de Humedad Ambiental: Mide la humedad del aire y permite conocer las condiciones ambientales del invernadero.
+- Sensor de Humedad del Suelo: Mide la humedad de la tierra para saber si las plantas necesitan agua.
+- Sistema de Riego: Se encarga de activar o detener el riego según la humedad del suelo.
+- Invernadero: Es el objeto que reúne los sensores y el sistema de riego para mantener condiciones adecuadas para las plantas.
+3. Estado y comportamiento
+Objeto propuesto	Responsabilidad	Información que debe conservar	Comportamientos que debe realizar
+Sensor Temperatura	Medir la temperatura	ID, ubicación, estado y valor en °C	Obtener la medición y evaluar si es alta, baja o adecuada
+Sensor Hum. Amb.	Medir la humedad del aire	ID, ubicación, estado y humedad en %	Obtener la medición y evaluar si es alta, baja o adecuada
+Sensor Hum. Suelo	Medir la humedad de la tierra	ID, ubicación, estado y valor de humedad	Obtener la medición y determinar si el suelo necesita agua
+Sistema Riego	Controlar el suministro de agua	Estado, tiempo de riego y si está activo	Activar y detener el riego según la humedad del suelo
+4. Características comunes y especialización
+1. ¿Qué información tienen en común? Todos los sensores tienen un identificador, una ubicación, un estado y una medición.
+
+2. ¿Qué comportamientos tienen en común? Todos pueden obtener o actualizar su medición y evaluar el valor obtenido.
+
+3. ¿Qué características cambian? Cambian la variable que mide cada sensor, su unidad de medida y los rangos que utiliza para interpretar las lecturas.
+
+4. ¿Existe un concepto general? Sí, el concepto general es el de Sensor, porque representa las características comunes de los diferentes sensores.
+
+5. ¿Qué elementos podrían representar especializaciones? El sensor de temperatura, el sensor de humedad ambiental y el sensor de humedad del suelo, porque cada uno mide una variable diferente.
+5. Relaciones entre objetos
+- ES UN: Un sensor de temperatura es un tipo de sensor. Lo mismo ocurre con los sensores de humedad. Aquí se puede utilizar la herencia.
+- TIENE / UTILIZA UN: El invernadero tiene sensores y un sistema de riego que trabajan juntos para mantener las condiciones adecuadas.
