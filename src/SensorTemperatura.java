@@ -7,7 +7,7 @@ public class SensorTemperatura extends Sensor {
     @Override
     public void evaluarMedicion() {
         double temp = getMedicion();
-        System.out.print("Sensor Temp [" + getId() - " en " + getUbicacion() + "] -> " + temp + " °C: ");
+        System.out.print("Sensor Temp [" + getId()  " - en " + getUbicacion() + "] -> " + temp + " °C: ");
         if (temp < 18) {
             System.out.println("Temperatura baja");
         } else if (temp <= 30) {
