@@ -75,3 +75,14 @@ Preguntas de reflexión
 4. ¿Cómo determina Java cuál implementación utilizar?** Mediante el enlace dinámico (*dynamic binding*), evaluando el tipo real del objeto en tiempo de ejecución.
 5. ¿Dónde puedes observar el polimorfismo?** En el ciclo `for` que recorre el arreglo de tipo `Sensor` ejecutando la misma llamada (`evaluarMedicion()`) pero obteniendo comportamientos distintos.
 6. ¿Dónde puedes observar el enlace dinámico?** En la resolución automática que hace Java de qué método `evaluarMedicion()` invocar dependiendo de si el objeto es de temperatura, humedad ambiental o humedad del suelo.
+
+---
+
+10. Análisis de instanceof, Casting y Sistema de Riego (Fase 5)
+
+Respuestas de análisis
+1. ¿Por qué fue necesario realizar el casting?** Porque la referencia almacenada en la colección era de tipo general `Sensor`. Para poder llamar al método específico `requiereRiegoUrgente()`, que solo existe en `SensorHumedadSuelo`, fue necesario hacer una conversión de tipo (*downcasting*).
+2. ¿Qué comprueba `instanceof`?** Verifica en tiempo de ejecución si el objeto referenciado es realmente una instancia de una clase particular o subclase, evitando errores de conversión (`ClassCastException`).
+3. ¿Qué podría ocurrir si intentaras convertir un objeto a una subclase incorrecta?** Lanzaría una excepción `ClassCastException` en tiempo de ejecución, interrumpiendo el programa.
+4. ¿Por qué no debes utilizar `instanceof` para sustituir innecesariamente el polimorfismo?** Porque rompería el principio de abierto/cerrado y la abstracción de POO. `instanceof` solo debe usarse en casos muy puntuales donde se requiera comportamiento único e infrecuente de una subclase.
+5. ¿El sistema de riego “es un” sensor o utiliza información proporcionada por los sensores?** El sistema de riego **utiliza** información de los sensores. Es una relación de colaboración/asociación y no de herencia, ya que su función es actuar (suministrar agua) y no medir.
